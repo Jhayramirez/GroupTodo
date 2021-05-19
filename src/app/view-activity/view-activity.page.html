@@ -1,0 +1,34 @@
+<ion-content [fullscreen]="true">
+  <ion-header class="ion-no-border">
+    <img src="assets/i-flower-blob.png" />
+    <ion-toolbar> </ion-toolbar>
+    <div class="titles" *ngFor="let element of activityArray">
+      <div class="" style="display: flex">
+        <h4>
+          {{ element.Title }}
+
+          <ion-icon
+            (click)="testing()"
+            name="settings-outline"
+            class="rotate"
+          ></ion-icon>
+        </h4>
+      </div>
+
+      <h6>
+        {{ element.Description }}
+        <ion-icon color="danger" name="heart"></ion-icon>
+      </h6>
+    </div>
+  </ion-header>
+
+  <div class="ion-padding-horizontal">
+    <ion-row>
+      <ion-col size="8">
+        <h4>Project Owner Name</h4>
+        <small>Jhay Ramirez</small>
+      </ion-col>
+    </ion-row>
+  </div>
+  <ion-button [routerLink]="['/home']">BACKSHIT</ion-button>
+</ion-content>

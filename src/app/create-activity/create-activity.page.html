@@ -1,0 +1,44 @@
+<ion-content>
+  <div class="background-pic">
+    <div class="background-filter">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title> Create a Task</ion-card-title>
+          <ion-card-subtitle>
+            Create a <strong>activity</strong> by filling up the form.
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item>
+            <ion-input
+              [(ngModel)]="title"
+              placeholder="Title of Activity"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input
+              [(ngModel)]="description"
+              placeholder="Description"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input [(ngModel)]="subject" placeholder="Subject"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-datetime
+              [(ngModel)]="myDate"
+              placeholder="Choose Date"
+              displayFormat="YYYY-DD-MM"
+            ></ion-datetime>
+          </ion-item>
+          <div class="bottom-section">
+            <ion-button (click)="createActivity()">Create</ion-button>
+            <ion-button color="danger" (click)="closeModal()"
+              >Cancel</ion-button
+            >
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

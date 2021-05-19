@@ -1,0 +1,22 @@
+<ion-header class="ion-no-border">
+  <img src="assets/i-flower-blob.png" />
+  <ion-toolbar>
+    <ion-buttons
+      slot="start"
+      style="margin-left: 6px"
+      (click)="presentActionSheet()"
+    >
+      <ion-button>
+        <ion-icon name="person"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <div class="titles">
+    <h4>Hi, {{ fullName }}!</h4>
+
+    <h6>
+      Create and Share your work!
+      <ion-icon color="danger" name="heart"></ion-icon>
+    </h6>
+  </div>
+</ion-header>

@@ -1,0 +1,69 @@
+<ion-content [fullscreen]="true">
+  <app-header></app-header>
+
+  <div class="ion-padding-horizontal">
+    <ion-row>
+      <ion-col size="8">
+        <h4>Current Projects</h4>
+      </ion-col>
+    </ion-row>
+    <ion-fab
+      vertical="bottom"
+      horizontal="end"
+      (click)="launchCreateActivityModal()"
+    >
+      <ion-fab-button color="success">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+    <ion-card class="ion-padding color" *ngFor="let element of activityArray">
+      <ion-card-content>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="2">
+            <div class="cover">
+              <img src="assets/f2.jpeg" />
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <ion-card-title>{{ element.Title }}</ion-card-title>
+            <ion-card-subtitle
+              ><small>{{ element.DateToBeSubmitted}}</small></ion-card-subtitle
+            >
+          </ion-col>
+          <ion-col size="3" class="ion-text-right">
+            <ion-button
+              color="dark"
+              mode="ios"
+              (click)="getActivityIdCollection(element.collectionId)"
+            >
+              <ion-icon
+                slot="icon-only"
+                name="chevron-forward-outline"
+              ></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+    <ion-card class="ion-padding color" *ngIf="activityArray.length == 0">
+      <ion-card-content>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="2"> </ion-col>
+          <ion-col size="6">
+            <ion-label>Add activity now!</ion-label>
+          </ion-col>
+          <ion-col size="3" class="ion-text-right">
+            <ion-button
+              color="success"
+              mode="ios"
+              (click)="launchCreateActivityModal()"
+            >
+              <ion-icon slot="icon-only" name="add"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
