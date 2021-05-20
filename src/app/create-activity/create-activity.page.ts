@@ -37,6 +37,16 @@ export class CreateActivityPage implements OnInit {
       this.uid = userId;
     });
   }
+  generateActivityUID(len) {
+    let arr = '1A2a3B4b5C6c7D8d9E0eFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz';
+
+    var ans = '';
+    for (var i = len; i > 0; i--) {
+      ans += arr[Math.floor(Math.random() * arr.length)];
+    }
+    return ans;
+  }
+
   createActivity() {
     const id = this.afs.createId();
 
@@ -46,6 +56,7 @@ export class CreateActivityPage implements OnInit {
       Description: this.description,
       Subject: this.subject,
       DateToBeSubmitted: this.myDate,
+      ActivityUID: this.generateActivityUID(6),
       ActivityOwner: this.uid,
       createdId: Date.now(),
     };
@@ -64,6 +75,7 @@ export class CreateActivityPage implements OnInit {
       return;
     }
     this.crudService.create(id, 'Activity_collections', objSet).then(() => {
+      return objSet;
       this.modalController.dismiss();
     });
   }

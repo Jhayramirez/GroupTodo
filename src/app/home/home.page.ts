@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ActionSheetController, ModalController } from '@ionic/angular';
+import {
+  ActionSheetController,
+  LoadingController,
+  ModalController,
+} from '@ionic/angular';
 import { CreateActivityPage } from '../create-activity/create-activity.page';
 import { ViewActivityPage } from '../view-activity/view-activity.page';
 import { UserServiceService } from '../services/user-service.service';
@@ -8,6 +12,7 @@ import { ActivityService } from '../services/activity.service';
 import { Router, Routes } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AppAlertService } from '../services/app-alert.service';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +31,9 @@ export class HomePage {
     private modalController: ModalController,
     private afs: AngularFirestore,
     private activity: ActivityService,
-    private router: Router
+    private router: Router,
+    private loadingController: LoadingController,
+    private appAlert: AppAlertService
   ) {}
   ngOnInit() {}
 
@@ -46,18 +53,31 @@ export class HomePage {
     this.modalController.dismiss();
   }
 
-  fetchYourOwnCreatedActivity() {
-    this.userService.getUserId().then((userId) => {
-      this.afs
-        .collection('Activity_collections', (ref) =>
-          ref.where('ActivityOwner', '==', userId)
-        )
-        .valueChanges()
-        .subscribe((Activity) => {
-          this.activityArray = Activity;
-          console.log(this.activityArray);
-        });
+  async fetchYourOwnCreatedActivity() {
+    const loading = await this.loadingController.create({
+      message: 'fetching projects ...',
+      spinner: 'crescent',
+      showBackdrop: true,
     });
+    loading.present();
+    this.userService
+      .getUserId()
+      .then((userId) => {
+        this.afs
+          .collection('Activity_collections', (ref) =>
+            ref.where('ActivityOwner', '==', userId)
+          )
+          .valueChanges()
+          .subscribe((Activity) => {
+            loading.dismiss();
+            this.activityArray = Activity;
+            console.log(this.activityArray);
+          });
+      })
+      .catch((error) => {
+        loading.dismiss();
+        this.appAlert.presentToast(error.message, 'danger', 2000);
+      });
   }
 
   async getActivityIdCollection(collectionId) {

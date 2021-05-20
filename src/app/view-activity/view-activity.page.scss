@@ -146,3 +146,39 @@ ion-content {
 .rotate {
   animation: rotation 2s infinite linear;
 }
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+}
+.bottom-section {
+  margin-top: -50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  ion-button {
+    height: 60px;
+    width: 350px;
+    font-size: 14px;
+    text-transform: none;
+    --background: linear-gradient(
+      to right,
+      #654ea3,
+      #eaafc8
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    font-weight: 400;
+    --border-radius: 15px !important;
+    color: #fff;
+  }
+
+  span {
+    margin-top: 10px;
+    font-weight: 330;
+    a {
+      font-weight: 400;
+    }
+  }
+}

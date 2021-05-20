@@ -3,6 +3,11 @@
     <img src="assets/i-flower-blob.png" />
     <ion-toolbar> </ion-toolbar>
     <div class="titles" *ngFor="let element of activityArray">
+      <ion-badge color="primary" style="margin-top: -1px; margin-left: 5rem"
+        >11</ion-badge
+      >
+      <!-- if request == 0 , badge out! -->
+
       <div class="" style="display: flex">
         <h4>
           {{ element.Title }}
@@ -16,19 +21,23 @@
       </div>
 
       <h6>
+        <ion-icon color="danger" name="newspaper-outline"></ion-icon>
         {{ element.Description }}
-        <ion-icon color="danger" name="heart"></ion-icon>
       </h6>
+      <div class="ion-padding-horizontal">
+        <ion-row>
+          <ion-col size="8">
+            <ion-label>Invite Code : {{ element.ActivityUID}}</ion-label>
+          </ion-col>
+        </ion-row>
+      </div>
     </div>
   </ion-header>
 
-  <div class="ion-padding-horizontal">
-    <ion-row>
-      <ion-col size="8">
-        <h4>Project Owner Name</h4>
-        <small>Jhay Ramirez</small>
-      </ion-col>
-    </ion-row>
+  <div class="bottom-section footer">
+    <ion-button color="medium" [routerLink]="['/home']">Back</ion-button>
+    <ion-button color="success" (click)="launchAddTaskModal()"
+      >Create Task</ion-button
+    >
   </div>
-  <ion-button [routerLink]="['/home']">BACKSHIT</ion-button>
 </ion-content>

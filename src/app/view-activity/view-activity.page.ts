@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { ActivityService } from '../services/activity.service';
+import { AddTaskPage } from '../add-task/add-task.page';
 
 @Component({
   selector: 'app-view-activity',
@@ -14,16 +16,19 @@ export class ViewActivityPage implements OnInit {
   constructor(
     private afs: AngularFirestore,
     private activity: ActivityService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private router: Router,
+    private loadingController: LoadingController
   ) {}
 
   ngOnInit() {}
   async ionViewWillEnter() {
     this.collectionId = this.activity.ActivityCollectionId;
+    if (this.collectionId == null) {
+      this.router.navigate(['/home']);
+      return;
+    }
     await this.ownActivityView();
-  }
-  testing() {
-    alert('asdasd');
   }
 
   async ownActivityView() {
@@ -39,5 +44,13 @@ export class ViewActivityPage implements OnInit {
   }
   closeModal() {
     this.modalController.dismiss();
+  }
+  async launchAddTaskModal() {
+    const modal = await this.modalController.create({
+      component: AddTaskPage,
+      cssClass: 'my-custom-class',
+    });
+
+    return await modal.present();
   }
 }
