@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { ActivityService } from '../services/activity.service';
 import { AddTaskPage } from '../add-task/add-task.page';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-view-activity',
   templateUrl: './view-activity.page.html',

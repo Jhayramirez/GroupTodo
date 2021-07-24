@@ -23,6 +23,9 @@ import { AuthService } from '../app/services/auth.service';
 // This Import is for AUTHENTICATION GUARD  x x x MiddleWare
 import { AuthGuard } from './guards/auth.guard';
 
+// for redirections
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -40,6 +43,7 @@ import { AuthGuard } from './guards/auth.guard';
     AuthService,
     AuthGuard,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent],
 })

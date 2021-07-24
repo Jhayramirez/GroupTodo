@@ -4,7 +4,7 @@
       <ion-slide>
         <ion-card>
           <ion-card-content>
-            <img style="height: 10rem" src="assets/addtask.svg" />
+            <img style="height: 7rem" src="assets/addtask.svg" />
           </ion-card-content>
         </ion-card>
       </ion-slide>
@@ -12,41 +12,14 @@
   </div>
 
   <div class="container">
-    <h2 class="ion-text-center">Add Task</h2>
+    <h2 class="ion-text-center">Add Members</h2>
     <ion-item>
       <ion-input [(ngModel)]="name" placeholder="Firstname"></ion-input>
     </ion-item>
     <ion-item>
       <ion-input [(ngModel)]="Last" placeholder="Lastname"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-input
-        [(ngModel)]="phone"
-        type="number"
-        placeholder="Phone No."
-      ></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input
-        [(ngModel)]="email"
-        type="email"
-        placeholder="Email"
-      ></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input
-        [(ngModel)]="password"
-        placeholder="Password"
-        type="password"
-      ></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input
-        type="password"
-        [(ngModel)]="confirmPassword"
-        placeholder="Confirm Password"
-      ></ion-input>
-    </ion-item>
+    
     <ion-button expand="block"> Create</ion-button>
     <ion-button expand="block" color="warning" (click)="closeModal()"
       >Close</ion-button

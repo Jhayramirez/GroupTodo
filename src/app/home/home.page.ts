@@ -20,12 +20,16 @@ import { AppAlertService } from '../services/app-alert.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  selectedSegmentValue: any = 'currentProject';
   title: any;
   description: any;
   subject: any;
   myDate: any;
   uid: any;
   activityArray: any = [];
+  cavity:any;
+
+  testin: any = [];
   constructor(
     private userService: UserServiceService,
     private modalController: ModalController,
@@ -39,20 +43,30 @@ export class HomePage {
 
   async ionViewWillEnter() {
     this.fetchYourOwnCreatedActivity();
+    this.getTeamingprojects();
   }
-
-  async launchCreateActivityModal() {
-    const modal = await this.modalController.create({
-      component: CreateActivityPage,
-      cssClass: 'my-custom-class',
-    });
-
-    return await modal.present();
+  segmentChanged(ev: any) {
+    // console.log(ev.target.value);
+    if (ev.target.value == 'currentProject') {
+      this.selectedSegmentValue = ev.target.value;
+      console.log(this.selectedSegmentValue);
+      return;
+    }
+    if (ev.target.value == 'otherProject') {
+      this.selectedSegmentValue = ev.target.value;
+      console.log(this.selectedSegmentValue);
+      return;
+    }
+    if (ev.target.value == 'requestConfirmation') {
+      this.selectedSegmentValue = ev.target.value;
+      console.log(this.selectedSegmentValue);
+      return;
+    }
   }
-  closeModal() {
-    this.modalController.dismiss();
-  }
-
+  // testingPushArray() {
+  //   console.log(this.testin);
+  //   this.testin.push('jhay', 'jhay', 'jhay');
+  // }
   async fetchYourOwnCreatedActivity() {
     const loading = await this.loadingController.create({
       message: 'fetching projects ...',
@@ -72,6 +86,33 @@ export class HomePage {
             loading.dismiss();
             this.activityArray = Activity;
             console.log(this.activityArray);
+          });
+      })
+      .catch((error) => {
+        loading.dismiss();
+        this.appAlert.presentToast(error.message, 'danger', 2000);
+      });
+  }
+
+  async getTeamingprojects() {
+    const loading = await this.loadingController.create({
+      message: 'fetching projects ...',
+      spinner: 'crescent',
+      showBackdrop: true,
+    });
+    loading.present();
+    this.userService
+      .getUserId()
+      .then((userId) => {
+        this.afs
+          .collection('Activity_collections', (ref) =>
+            ref.where('testing', '!=', null)
+          )
+          .valueChanges()
+          .subscribe((Activity) => {
+            loading.dismiss();
+            this.cavity = Activity;
+            console.log(this.cavity);
           });
       })
       .catch((error) => {

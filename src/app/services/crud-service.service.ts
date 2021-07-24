@@ -93,6 +93,7 @@ export class CrudServiceService {
         loading.dismiss();
         this.toast(error.message, 'danger');
       });
+    loading.dismiss();
   } //End Of Update Function
 
   // DELETE

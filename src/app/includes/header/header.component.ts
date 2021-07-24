@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, ModalController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
+import { CreateActivityPage } from '../../create-activity/create-activity.page';
 
 @Component({
   selector: 'app-header',
@@ -16,13 +17,26 @@ export class HeaderComponent implements OnInit {
     private userService: UserServiceService,
     public actionSheetController: ActionSheetController,
     public AuthService: AuthService,
-    private router: Router
+    private router: Router,
+    private modalController: ModalController
   ) {}
 
   async ngOnInit() {
     this.userInfo = await this.userService.getCurrentUserInfo();
     await this.initializeUserInfoUi();
     console.log(this.userInfo);
+  }
+
+  async launchCreateActivityModal() {
+    const modal = await this.modalController.create({
+      component: CreateActivityPage,
+      cssClass: 'my-custom-class',
+    });
+
+    return await modal.present();
+  }
+  closeModal() {
+    this.modalController.dismiss();
   }
   capitalizeString(string) {
     let stringHolderArray = string.split('');
@@ -50,7 +64,7 @@ export class HeaderComponent implements OnInit {
   }
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
-      header: 'Albums',
+      header: this.fullName,
       cssClass: 'my-custom-class',
       buttons: [
         {
@@ -79,8 +93,5 @@ export class HeaderComponent implements OnInit {
       ],
     });
     await actionSheet.present();
-
-    const { role } = await actionSheet.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
   }
 }

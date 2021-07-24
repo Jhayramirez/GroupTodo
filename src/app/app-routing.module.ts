@@ -33,7 +33,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./forgot-password/forgot-password.module').then(
         (m) => m.ForgotPasswordPageModule
-      ),
+      ),  canActivate: [AuthGuard],
   },
   {
     path: 'register',
@@ -45,22 +45,26 @@ const routes: Routes = [
     loadChildren: () =>
       import('./create-activity/create-activity.module').then(
         (m) => m.CreateActivityPageModule
-      ),
+      ),canActivate: [AuthGuard],
   },
   {
     path: 'view-activity',
     loadChildren: () =>
       import('./view-activity/view-activity.module').then(
         (m) => m.ViewActivityPageModule
-      ),
+      ),canActivate: [AuthGuard],
   },
   {
     path: 'change-password',
-    loadChildren: () => import('./change-password/change-password.module').then( m => m.ChangePasswordPageModule)
+    loadChildren: () => import('./change-password/change-password.module').then( m => m.ChangePasswordPageModule),canActivate: [AuthGuard],
   },
   {
     path: 'add-task',
-    loadChildren: () => import('./add-task/add-task.module').then( m => m.AddTaskPageModule)
+    loadChildren: () => import('./add-task/add-task.module').then( m => m.AddTaskPageModule),canActivate: [AuthGuard],
+  },
+  {
+    path: 'request-confirmation',
+    loadChildren: () => import('./request-confirmation/request-confirmation.module').then( m => m.RequestConfirmationPageModule),canActivate: [AuthGuard],
   },
 ];
 

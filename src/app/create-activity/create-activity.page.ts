@@ -5,6 +5,7 @@ import { ModalController } from '@ionic/angular';
 import { AppAlertService } from '../services/app-alert.service';
 import { CrudServiceService } from '../services/crud-service.service';
 import { UserServiceService } from '../services/user-service.service';
+import * as moment from 'moment';
 @Component({
   selector: 'app-create-activity',
   templateUrl: './create-activity.page.html',
@@ -16,6 +17,7 @@ export class CreateActivityPage implements OnInit {
   subject: any;
   myDate: String = new Date().toISOString();
   uid: any;
+  testtest:any = ['asd' , 'asd' ,'asd'];
 
   constructor(
     private modalController: ModalController,
@@ -55,10 +57,13 @@ export class CreateActivityPage implements OnInit {
       Title: this.title,
       Description: this.description,
       Subject: this.subject,
-      DateToBeSubmitted: this.myDate,
+      DateToBeSubmitted: (this.myDate = moment().format(
+        'MMMM Do YYYY, h:mm:ss a'
+      )),
       ActivityUID: this.generateActivityUID(6),
       ActivityOwner: this.uid,
-      createdId: Date.now(),
+      createdAt: Date.now(),
+      testing : this.testtest,
     };
     if (
       (this.title &&
@@ -68,14 +73,13 @@ export class CreateActivityPage implements OnInit {
         this.uid) == null
     ) {
       this.appAlert.presentToast(
-        'Please fill up all the form!',
+        'Please fill up all the form.',
         'warning',
         3000
       );
       return;
     }
     this.crudService.create(id, 'Activity_collections', objSet).then(() => {
-      return objSet;
       this.modalController.dismiss();
     });
   }
